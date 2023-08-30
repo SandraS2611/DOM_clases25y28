@@ -1,9 +1,12 @@
-document.getElementById("container").innerHTML = "<h1>hola mundo<h1>"
+const container = document.getElementById("container");
 
-const condicion = prompt("¿quieres que te salude?")
+const todoId = prompt("pasame el Id que quieras ver");
 
-if (condicion == "si" ) {
-    document.getElementById("container").innerHTML = "<p>Hola mundo</p>"
-} else {
-    document.getElementById("container").innerHTML = "<p>Chau mundo</p>"
-}
+fetch(`https://jsonplaceholder.typicode.com/todos/${todoId}`)
+  .then((res) => res.json())
+  .then((informacion) => {
+    container.innerHTML = `
+    <h1>${informacion.title}</h1>
+    <p>userId: ${informacion.userId} completed: ${informacion.completed} </p>
+     `;
+  });
